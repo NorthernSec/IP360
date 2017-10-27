@@ -137,6 +137,25 @@ class IP360:
         logging.info('Retrieving network "%s"...' % name)
         return self.call('class.Network', 'search', {'format':'list', 'query':"name='%s'"% name})[0]
 
+
+    def addNetwork(self, name):
+        logging.info('Adding network "%s"...' % name)
+        return self.call('class.Network', 'create', {'name':name})
+
+
+    def deleteNetwork(self, netw_id):
+        if not netw_id.startswith("Network."):
+            logging.warning('"%s" is not a valid network. Not deleting...' % netw_id)
+            return False
+        logging.info('Deleting network "%s"...' % netw_id)
+        self.call(netw_id, 'delete', {})
+        return True
+
+
+    def addNetworkIncludes(self, netw_id, ip_list):
+        logging.info('Adding %s to the includes list of network "%s"' % ())
+        self.call(netw_id, 'addIncludes', {'addrs': ip_list})
+
     ##########
     # Audits #
     ##########
